@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: agentic-care-backend
+    runtime: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    plan: free
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: PRIMARY_LLM
+        value: gpt-4o
+      - key: FALLBACK_LLM
+        value: gpt-4o-mini
+      - key: DATABASE_URL
+        value: sqlite:///./ecommerce.db
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: CORS_ORIGINS
+        value: https://agentic-customer-care.vercel.app
+    healthCheckPath: /api/health
